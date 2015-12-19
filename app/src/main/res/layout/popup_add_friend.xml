@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/popup_element_add_friend"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:weightSum="1"
+              android:background="#ffffff">
+    <TextView
+        android:id="@+id/addFriendPopupFriendName"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:editable="false"
+        android:layout_weight="0.4"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/addFriendConfirmation"
+        android:editable="false"
+        android:layout_weight="0.4"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:weightSum="1"
+        android:layout_weight="0.2"
+        android:layout_margin="5dp"
+        >
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/yes"
+            android:id="@+id/buttonAddFriedConfirm"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.5"
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/no"
+            android:id="@+id/buttonAddFriendCanel"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.5"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>

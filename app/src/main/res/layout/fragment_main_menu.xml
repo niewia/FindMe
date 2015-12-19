@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_alignParentTop="true"
+              android:layout_centerHorizontal="true"
+              android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="0.5"
+                  android:layout_alignParentTop="true"
+                  android:layout_centerHorizontal="true"
+                  android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonPendingInvites"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/main_menu_button_text_size"
+            android:text="@string/buttonPendingInvites"/>
+
+        <Button
+            android:id="@+id/buttonMyFriends"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/main_menu_button_text_size"
+            android:text="@string/buttonMyFriends"/>
+
+        <Button
+            android:id="@+id/buttonEditProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/main_menu_button_text_size"
+            android:text="@string/buttonEditProfileText"/>
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_alignParentTop="true"
+                  android:layout_centerHorizontal="true"
+                  android:layout_weight="0.5"
+                  android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonUpdateStatus"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/main_menu_button_text_size"
+            android:text="@string/buttonChaneStatus"/>
+
+        <Button
+            android:id="@+id/buttonFindFriends"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/main_menu_button_text_size"
+            android:text="@string/buttonFindFriends"/>
+
+        <Button
+            android:id="@+id/buttonQuit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/main_menu_button_text_size"
+            android:text="@string/buttonQuitApp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

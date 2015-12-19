@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/popup_element"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:weightSum="1"
+              android:background="#ffffff">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/typeYourStatus"
+        android:layout_gravity="center_horizontal"
+        android:editable="false"
+        android:layout_weight="0.2"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:layout_margin="5dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:hint="@string/yourCurrentStatusPopUpHint"
+        android:editable="true"
+        android:id="@+id/textStatus"
+        android:layout_weight="0.6"
+        android:layout_margin="5dp"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:weightSum="1"
+        android:layout_weight="0.2"
+        android:layout_margin="5dp"
+        >
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/buttonUpdateMyStatusPopUpSend"
+            android:id="@+id/buttonUpdate"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.5"
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/buttonCancelStatusUpdate"
+            android:id="@+id/buttonCanel"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.5"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>
