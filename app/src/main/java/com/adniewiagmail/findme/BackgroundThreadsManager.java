@@ -10,8 +10,7 @@ import java.util.List;
  */
 public class BackgroundThreadsManager {
 
-    public static final int defaultThreadUpdateInterval = 30 * 1000;
-    public static final int mapUpdateInterval = 5 * 1000;
+    public static final int defaultThreadUpdateInterval = 5 * 1000;
     private static List<TerminatableThread> threads = new ArrayList<TerminatableThread>();
 
     public static void startThread(TerminatableThread thread) {
@@ -24,6 +23,7 @@ public class BackgroundThreadsManager {
         Log.d("BACKGROUND_THREAD", "Stoping background threads: " + threads.size() + " threads");
         for (TerminatableThread thread : threads) {
             thread.terminate();
+            thread = null;
         }
     }
 

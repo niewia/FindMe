@@ -3,6 +3,7 @@ package com.adniewiagmail.findme.Activities;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -27,6 +28,7 @@ public class PendingInvitesList extends ListActivity {
         adapter = new ArrayAdapter<Invite>(this, R.layout.list_item_pending_invite, DataManager
                 .pendingInvites().getInvites());
         setListAdapter(adapter);
+        Log.d("PENDING_INVITES_LIST", "onCreate");
         DataManager.pendingInvites().populateList(this);
     }
 

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.adniewiagmail.findme.Activities.MainActivity.MainActivity;
+import com.adniewiagmail.findme.Persistence.DataManager;
 import com.adniewiagmail.findme.R;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -34,6 +35,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
+        DataManager.clearFriends();
+        if (ParseUser.getCurrentUser() != null) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
         setContentView(R.layout.activity_login);
 
         signUpTextView = (TextView)findViewById(R.id.signUpText);

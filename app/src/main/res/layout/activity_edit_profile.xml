@@ -1,50 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:backgroundTint="@color/colorAccent"
+              android:orientation="vertical">
 
     <Button
         android:id="@+id/buttonChangePhoto"
-        android:text="@string/editProfileChangePhoto"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:text="@string/editProfileChangePhoto"
+        android:textColor="@color/colorAccent"/>
 
 
     <ImageView
-        android:layout_margin="20dp"
-        android:layout_gravity="center"
         android:id="@+id/profilePhotoPreview"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:src="@drawable/default_profile_photo" />
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:src="@drawable/default_profile_photo"/>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="horizontal"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
         <Button
             android:id="@+id/buttonRotatePhotoLeft"
-            android:text="obróć"
-            android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/button"
+            android:drawableLeft="@drawable/rotate_left"
+            android:textColor="@color/colorAccent"/>
 
         <Button
             android:id="@+id/buttonRotatePhotoRight"
-            android:text="obróć"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/button"
+            android:drawableRight="@drawable/rotate_right"
+            android:textColor="@color/colorAccent"/>
 
     </RelativeLayout>
 
 
     <Button
         android:id="@+id/buttonChangePhotoSave"
-        android:text="@string/acceptSave"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:text="@string/acceptSave"
+        android:textColor="@color/colorAccent"/>
 
 </LinearLayout>

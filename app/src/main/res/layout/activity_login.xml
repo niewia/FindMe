@@ -2,11 +2,12 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/colorAccent"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                tools:context=".LoginActivity" >
+                tools:context=".LoginActivity">
 
     <EditText
         android:id="@+id/usernameField"
@@ -15,9 +16,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:ems="10"
-        android:hint="@string/username_hint" >
+        android:hint="@string/username_hint"
+        android:textColor="@color/colorPrimaryDark"
+        android:textColorHint="@color/colorPrimaryDark"
+        >
 
-        <requestFocus />
+        <requestFocus/>
     </EditText>
 
     <EditText
@@ -28,7 +32,9 @@
         android:layout_below="@+id/usernameField"
         android:ems="10"
         android:hint="@string/password_hint"
-        android:inputType="textPassword" />
+        android:textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimaryDark"
+        android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/loginButton"
@@ -36,16 +42,19 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/passwordField"
         android:layout_below="@+id/passwordField"
-        android:text="@string/login_button_label" />
+        android:background="@drawable/button"
+        android:text="@string/login_button_label"
+        android:textColor="@color/colorAccent"/>
 
     <TextView
         android:id="@+id/signUpText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/loginButton"
-        android:gravity="center"
         android:layout_marginTop="69dp"
-        android:textSize="20sp"
-        android:text="@string/sign_up_text" />
+        android:gravity="center"
+        android:text="@string/sign_up_text"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"/>
 
 </RelativeLayout>

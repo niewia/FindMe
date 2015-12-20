@@ -72,7 +72,7 @@ public class AddFriendPopup {
             progress.show();
             Map<String, String> params = new HashMap<String, String>();
             params.put("userId", ParseUser.getCurrentUser().getObjectId());
-            params.put("newFriendId", friendToAdd.getUser().getObjectId());
+            params.put("newFriendId", friendToAdd.getId());
             ParseCloud.callFunctionInBackground("addFriend", params, new FunctionCallback<Object>() {
                 @Override
                 public void done(Object o, ParseException e) {

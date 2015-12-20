@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adniewiagmail.findme.R;
@@ -38,7 +41,7 @@ public class UpdateStatusPopup {
         statusPopup = new PopupWindow(layout);
         statusPopup.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
         statusPopup.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
-        statusPopup.showAtLocation(layout, Gravity.TOP, 0, 0);
+        statusPopup.showAtLocation(layout, Gravity.TOP, 0, 100);
         statusPopup.setFocusable(true);
         statusPopup.update();
         buttonUpdate = (Button) layout.findViewById(R.id.buttonUpdate);
@@ -48,6 +51,22 @@ public class UpdateStatusPopup {
         buttonCancel.setOnClickListener(updateCancel);
 
         textStatus = (EditText) layout.findViewById(R.id.textStatus);
+        String status = ParseUser.getCurrentUser().getString("status");
+        if (status != null && !status.isEmpty()) {
+            textStatus.setText(status);
+        }
+        textStatus.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    saveStatus();
+                    statusPopup.dismiss();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
     }
 
     private View.OnClickListener updateCancel = new View.OnClickListener() {

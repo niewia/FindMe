@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -226,7 +225,7 @@ public class EditProfile extends AppCompatActivity {
         c.drawBitmap(bitmap, halfBorder, halfBorder, p);
         p.setXfermode(null);
         p.setStyle(Paint.Style.STROKE);
-        p.setColor(Color.WHITE);
+        p.setColor(0xFFAC33FF);
         p.setStrokeWidth(halfBorder);
         c.drawCircle((w / 2) + halfBorder, (h / 2) + halfBorder, radius, p);
         return output;

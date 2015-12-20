@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.adniewiagmail.findme.Codes.ErrorCodes;
-import com.adniewiagmail.findme.Persistence.DataManager;
 import com.adniewiagmail.findme.Persistence.DataObjects.Friend;
 import com.adniewiagmail.findme.R;
 import com.adniewiagmail.findme.Utils.FriendshipStatus;
@@ -43,7 +42,6 @@ public class FindFriends extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_friends);
-        DataManager.pendingInvites().loadInvites(this);
         initComponents();
     }
 

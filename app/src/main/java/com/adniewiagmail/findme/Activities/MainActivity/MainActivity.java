@@ -15,7 +15,6 @@ import android.view.Window;
 
 import com.adniewiagmail.findme.Activities.LoginActivity;
 import com.adniewiagmail.findme.BackgroundThreadsManager;
-import com.adniewiagmail.findme.Persistence.DataManager;
 import com.adniewiagmail.findme.R;
 import com.adniewiagmail.findme.Utils.PermissionCodes;
 import com.parse.ParseException;
@@ -39,6 +38,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
         if (currentUser == null) {
             loadLoginView();
         } else {
+            Log.d("MAIN_ACTIVITY", "onCreate method map fragment");
             mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
             menuFragment = (MenuFragment) getSupportFragmentManager().findFragmentById(R.id.menuFragment);
         }
@@ -47,7 +47,6 @@ public class MainActivity extends FragmentActivity implements LocationListener {
     @Override
     public void onResume() {
         super.onResume();
-        DataManager.myFriends().onResume();
         requestLocationUpdate();
         moveCameraIfPossible();
     }
@@ -80,7 +79,6 @@ public class MainActivity extends FragmentActivity implements LocationListener {
     @Override
     public void onPause() {
         super.onPause();
-        DataManager.myFriends().onPause();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},

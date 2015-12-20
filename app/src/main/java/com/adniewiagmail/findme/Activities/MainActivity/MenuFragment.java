@@ -122,7 +122,6 @@ public class MenuFragment extends Fragment {
 
     private void quit() {
         final ProgressDialog progress = new ProgressDialog(getActivity());
-//        BackgroundThreadsManager.stopAll();
         progress.setMessage(getActivity().getString(R.string.loggingOutInProgress));
         progress.show();
         ParseUser currentUser = ParseUser.getCurrentUser();

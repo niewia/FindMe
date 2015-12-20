@@ -1,13 +1,13 @@
 package com.adniewiagmail.findme.Persistence;
 
-import android.app.ProgressDialog;
-import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import com.adniewiagmail.findme.BackgroundThreadsManager;
 import com.adniewiagmail.findme.Persistence.DataObjects.Friend;
 import com.adniewiagmail.findme.TerminatableThread;
+import com.google.android.gms.maps.GoogleMap;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -20,13 +20,14 @@ import java.util.List;
 /**
  * Created by Adaś on 2015-11-12.
  */
-public class MyFriendsProvider extends TerminatableThread{
-
+public class MyFriendsProvider extends TerminatableThread {
+    Handler mainHandler = new Handler(Looper.getMainLooper());
     private static List<Friend> friends = new ArrayList<Friend>();
     private Object pauseLock;
     private volatile boolean running;
     private volatile boolean paused;
     private boolean loading = false;
+    private GoogleMap googleMap;
 
     public MyFriendsProvider() {
         this.pauseLock = new Object();
@@ -46,14 +47,11 @@ public class MyFriendsProvider extends TerminatableThread{
 
     public void run() {
         while (running) {
-            try {
-                if (!loading) {
-                    loadFriends();
-                }
-                Thread.sleep((long) BackgroundThreadsManager.defaultThreadUpdateInterval);
-            } catch (InterruptedException e) {
-                running = false;
+            long time = System.currentTimeMillis();
+            if (!loading) {
+                loadFriends();
             }
+            waitTimeLeft(time);
             synchronized (pauseLock) {
                 while (paused) {
                     try {
@@ -74,12 +72,9 @@ public class MyFriendsProvider extends TerminatableThread{
             @Override
             public void done(ParseObject friendsRow, ParseException e) {
                 if (e == null) {
-                    friends.clear();
                     List<ParseUser> friendsObjects = friendsRow.getList("friends");
                     if (friendsObjects != null) {
-                        for (ParseUser friendObject : friendsObjects) {
-                            friends.add(new Friend(friendObject));
-                        }
+                        updateFriends(friendsObjects);
                     }
                 } else {
                     Log.d(getClass().getSimpleName(), "Error loading friends: " + e.getMessage());
@@ -89,30 +84,15 @@ public class MyFriendsProvider extends TerminatableThread{
         });
     }
 
-    public void popualateList(Context context, final ArrayAdapter<Friend> adapter) {
-        final ProgressDialog progress = new ProgressDialog(context);
-        progress.show();
-        ParseQuery<ParseObject> myFriends = ParseQuery.getQuery("Friends");
-        myFriends.whereEqualTo("user", ParseUser.getCurrentUser());
-        myFriends.include("friends");
-        myFriends.getFirstInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject friendRow, ParseException e) {
-                if (e == null) {
-                    friends.clear();
-                    List<ParseUser> friendsObjects = friendRow.getList("friends");
-                    if (friendsObjects != null) {
-                        for (ParseUser friendObject : friendsObjects) {
-                            friends.add(new Friend(friendObject));
-                        }
-                    }
-                    adapter.notifyDataSetChanged();
-                } else {
-                    Log.d(getClass().getSimpleName(), "Error: " + e.getMessage());
-                }
-                progress.dismiss();
+    private void updateFriends(List<ParseUser> friendsUsers) {
+        for (ParseUser friendUser : friendsUsers) {
+            Friend currFriend = findFriend(friendUser);
+            if (currFriend == null) {
+                friends.add(new Friend(friendUser, googleMap));
+            } else {
+                currFriend.updateData(friendUser, googleMap);
             }
-        });
+        }
     }
 
     public List<Friend> getFriends() {
@@ -122,7 +102,7 @@ public class MyFriendsProvider extends TerminatableThread{
     public Friend findFriend(ParseUser user) {
         for (Friend friend : friends) {
             String friendId = friend.getId();
-            String userId  = user.getObjectId();
+            String userId = user.getObjectId();
             if (userId.equals(friendId)) {
                 return friend;
             }
@@ -130,19 +110,62 @@ public class MyFriendsProvider extends TerminatableThread{
         return null;
     }
 
+    private boolean isInFriends(ParseUser user) {
+        return findFriend(user) != null;
+    }
 
     public void onPause() {
         Log.d("ACTIVITY_LIFECYCLE", "Pausing MyFriendsProvider");
         synchronized (pauseLock) {
             paused = true;
+            removeOldMarkers();
         }
     }
 
-    public void onResume() {
+    public void onResume(GoogleMap googleMap) {
         Log.d("ACTIVITY_LIFECYCLE", "Resuming MyFriendsProvider");
         synchronized (pauseLock) {
+            this.googleMap = googleMap;
+            updateMarkers();
             paused = false;
             pauseLock.notifyAll();
         }
+    }
+
+    public void removeOldMarkers() {
+        for (Friend friend : friends) {
+            friend.removeMarker();
+        }
+        googleMap.clear();
+    }
+
+    public void updateMarkers() {
+        Log.d("MY_FRIENDS_PROVIDER", "Updating markers...");
+        mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                for (Friend friend : friends) {
+                    friend.updateMarker(googleMap);
+                }
+            }
+        });
+    }
+
+    private void waitTimeLeft(long timeStarted) {
+        long timeLeft = timeStarted - System.currentTimeMillis();
+        timeLeft = (long) BackgroundThreadsManager.defaultThreadUpdateInterval - timeLeft;
+        if (timeLeft < 1) {
+            timeLeft = 1;
+        }
+        try {
+            Log.d("SLEEP", "Sleeping for "+ timeLeft);
+            Thread.sleep(timeLeft);
+        } catch (InterruptedException e) {
+            running = false;
+        }
+    }
+
+    public void clear() {
+        friends.clear();
     }
 }

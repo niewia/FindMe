@@ -1,6 +1,7 @@
 package com.adniewiagmail.findme.Persistence;
 
-import com.adniewiagmail.findme.Activities.MainActivity.MapUpdater;
+import android.util.Log;
+
 import com.adniewiagmail.findme.BackgroundThreadsManager;
 
 /**
@@ -10,7 +11,6 @@ public class DataManager {
 
     private static PendingInvitesProvider pendingInvitesProvider;
     private static MyFriendsProvider myFriendsProvider;
-    private static MapUpdater mapUpdater;
 
     public static PendingInvitesProvider pendingInvites(){
         if (pendingInvitesProvider == null) {
@@ -27,11 +27,11 @@ public class DataManager {
         return myFriendsProvider;
     }
 
-    public static MapUpdater mapUpdater() {
-        if (mapUpdater == null) {
-            mapUpdater = new MapUpdater();
-            BackgroundThreadsManager.startThread(mapUpdater);
+    public static void clearFriends() {
+        Log.d("DATA_MANAGER", "Clearing myFriends");
+        if (myFriendsProvider != null) {
+            myFriendsProvider.clear();
         }
-        return mapUpdater;
     }
+
 }
