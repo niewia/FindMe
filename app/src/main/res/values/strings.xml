@@ -54,8 +54,11 @@
     <string name="statusUpdateSuccess">Status został pomyślnie uaktualniony</string>
     <string name="editProfileChangePhoto">Wybierz zdjęcie</string>
     <string name="title_activity_edit_profile">Edytuj profil</string>
-    <string name="profileImageUpdateSuccessfull">Zdjęcie zaktualizowane pomyślnie</string>
+    <string name="profileImageUpdateSuccessfull">Profil zaktualizowany pomyślnie</string>
     <string name="profileImageUpdatePhotoNotPicked">Nie wybrano zdjęcia</string>
     <string name="errorSomethingWentWrong">Ups! Coś poszło nie tak...</string>
     <string name="acceptSave">Zapisz</string>
+    <string name="hintEnterYourFriendsEmail">Wpisz adres email swojego znajomego</string>
+    <string name="statusNothingToSay">Nie mam nic do powiedzenia.</string>
+    <string name="pendingInvitesNoEntries">Nie masz zaproszeń? Zaproś kogoś sam!</string>
 </resources>

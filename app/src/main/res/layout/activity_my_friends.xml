@@ -2,14 +2,28 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".MyFriends" >
+                tools:context=".MyFriends">
 
     <ListView
         android:id="@android:id/list"
+        android:backgroundTint="@color/colorAccent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true">
     </ListView>
+
+    <Button
+        android:id="@+id/emptyFriendsListButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:text="Nie masz jeszcze przyjaciół? \nZnajdź ich!"
+        android:textColor="@color/colorAccent"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:padding="10dp"
+        android:textAllCaps="false"
+        />
 
 </RelativeLayout>

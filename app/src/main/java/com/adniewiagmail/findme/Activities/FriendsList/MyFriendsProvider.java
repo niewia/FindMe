@@ -1,11 +1,10 @@
-package com.adniewiagmail.findme.Persistence;
+package com.adniewiagmail.findme.Activities.FriendsList;
 
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
 import com.adniewiagmail.findme.BackgroundThreadsManager;
-import com.adniewiagmail.findme.Persistence.DataObjects.Friend;
 import com.adniewiagmail.findme.TerminatableThread;
 import com.google.android.gms.maps.GoogleMap;
 import com.parse.GetCallback;
@@ -28,6 +27,8 @@ public class MyFriendsProvider extends TerminatableThread {
     private volatile boolean paused;
     private boolean loading = false;
     private GoogleMap googleMap;
+    private boolean isFriendsListDisplayed;
+    private FriendsListAdapter friendsListAdapter;
 
     public MyFriendsProvider() {
         this.pauseLock = new Object();
@@ -91,6 +92,9 @@ public class MyFriendsProvider extends TerminatableThread {
                 friends.add(new Friend(friendUser, googleMap));
             } else {
                 currFriend.updateData(friendUser, googleMap);
+            }
+            if (isFriendsListDisplayed) {
+                friendsListAdapter.notifyDataSetChanged();
             }
         }
     }
@@ -167,5 +171,14 @@ public class MyFriendsProvider extends TerminatableThread {
 
     public void clear() {
         friends.clear();
+    }
+
+    public void setFriendsListAdapter(FriendsListAdapter friendsListAdapter) {
+        this.friendsListAdapter = friendsListAdapter;
+        setFriendsListDisplayed(true);
+    }
+
+    public void setFriendsListDisplayed(boolean isDisplayed) {
+        this.isFriendsListDisplayed = isDisplayed;
     }
 }

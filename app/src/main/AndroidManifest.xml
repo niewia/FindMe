@@ -77,14 +77,14 @@
                 android:value=".Activities.MainActivity.MainActivity" />
         </activity>
         <activity
-            android:name=".Activities.PendingInvitesList"
+            android:name=".Activities.PendingInvites.PendingInvitesList"
             android:label="@string/title_activity_pending_invites" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.MainActivity.MainActivity" />
         </activity>
         <activity
-            android:name=".Activities.MyFriendsList"
+            android:name=".Activities.FriendsList.MyFriendsList"
             android:label="@string/title_activity_my_friends" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

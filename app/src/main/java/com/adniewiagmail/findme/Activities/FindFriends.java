@@ -1,7 +1,9 @@
 package com.adniewiagmail.findme.Activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,8 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.adniewiagmail.findme.Activities.MainActivity.MainActivity;
 import com.adniewiagmail.findme.Codes.ErrorCodes;
-import com.adniewiagmail.findme.Persistence.DataObjects.Friend;
+import com.adniewiagmail.findme.Activities.FriendsList.Friend;
 import com.adniewiagmail.findme.R;
 import com.adniewiagmail.findme.Utils.FriendshipStatus;
 import com.parse.GetCallback;
@@ -172,5 +175,15 @@ public class FindFriends extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Parcelable cameraPosition = getIntent().getParcelableExtra("cameraPosition");
+        Intent intent = new Intent(FindFriends.this, MainActivity.class);
+        intent.putExtra("cameraPosition", cameraPosition);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

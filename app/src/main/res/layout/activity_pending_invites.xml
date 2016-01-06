@@ -12,4 +12,18 @@
         android:layout_alignParentTop="true" >
     </ListView>
 
+
+    <Button
+        android:id="@+id/emptyPendingInvitesButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/pendingInvitesNoEntries"
+        android:textColor="@color/colorAccent"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:padding="10dp"
+        android:textAllCaps="false"
+        />
+
 </RelativeLayout>

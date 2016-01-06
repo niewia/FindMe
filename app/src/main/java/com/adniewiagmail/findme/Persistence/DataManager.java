@@ -2,6 +2,8 @@ package com.adniewiagmail.findme.Persistence;
 
 import android.util.Log;
 
+import com.adniewiagmail.findme.Activities.FriendsList.MyFriendsProvider;
+import com.adniewiagmail.findme.Activities.PendingInvites.PendingInvitesProvider;
 import com.adniewiagmail.findme.BackgroundThreadsManager;
 
 /**

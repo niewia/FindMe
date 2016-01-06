@@ -17,6 +17,7 @@ import com.adniewiagmail.findme.Activities.LoginActivity;
 import com.adniewiagmail.findme.BackgroundThreadsManager;
 import com.adniewiagmail.findme.R;
 import com.adniewiagmail.findme.Utils.PermissionCodes;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
@@ -41,6 +42,7 @@ public class MainActivity extends FragmentActivity implements LocationListener {
             Log.d("MAIN_ACTIVITY", "onCreate method map fragment");
             mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
             menuFragment = (MenuFragment) getSupportFragmentManager().findFragmentById(R.id.menuFragment);
+            menuFragment.setMapFragment(mapFragment);
         }
     }
 
@@ -52,21 +54,10 @@ public class MainActivity extends FragmentActivity implements LocationListener {
     }
 
     private void moveCameraIfPossible() {
-        if (shouldShowFriendLocation()) {
-            Location location = new Location("location");
-            Intent intent = getIntent();
-            double latitude = intent.getDoubleExtra("latitude", 0);
-            double longitude = intent.getDoubleExtra("longitude", 0);
-            location.setLongitude(longitude);
-            location.setLatitude(latitude);
-            mapFragment.moveCamera(location);
+        CameraPosition cameraPosition = getIntent().getParcelableExtra("cameraPosition");
+        if (cameraPosition != null) {
+            mapFragment.moveCamera(cameraPosition);
         }
-    }
-
-    private boolean shouldShowFriendLocation() {
-        Intent intent = getIntent();
-        double latitude = intent.getDoubleExtra("latitude", 0);
-        return latitude != 0;
     }
 
     private void loadLoginView() {
@@ -121,10 +112,9 @@ public class MainActivity extends FragmentActivity implements LocationListener {
         }
     }
 
-
     @Override
     public void onLocationChanged(Location location) {
-        if (!shouldShowFriendLocation() && shouldMoveToMyLocation) {
+        if (shouldMoveToMyLocation && getIntent().getParcelableExtra("cameraPosition") == null) {
             shouldMoveToMyLocation = false;
             mapFragment.moveCamera(location);
         }

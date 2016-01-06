@@ -48,14 +48,69 @@
 
     </RelativeLayout>
 
+<RelativeLayout
+    android:layout_marginTop="20dp"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+    <EditText
+        android:id="@+id/editProfileNickname"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:gravity="center"
+        android:text="Ksywa"/>
+
+    <EditText
+        android:id="@+id/editProfileFirstName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editProfileNickname"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:gravity="center"
+        android:text="Imie"/>
+
+    <EditText
+        android:id="@+id/editProfileLastName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editProfileFirstName"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:gravity="center"
+        android:text="Nazwisko"/>
+
+    <EditText
+        android:id="@+id/editProfileEmail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editProfileLastName"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        android:gravity="center"
+        android:text="Email"/>
 
     <Button
         android:id="@+id/buttonChangePhotoSave"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/editProfileEmail"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/button"
         android:text="@string/acceptSave"
         android:textColor="@color/colorAccent"/>
-
+</RelativeLayout>
 </LinearLayout>

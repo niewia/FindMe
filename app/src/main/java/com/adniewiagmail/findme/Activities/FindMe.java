@@ -28,6 +28,7 @@ public class FindMe extends Application {
     public static Context getAppContext() {
         return FindMe.context;
     }
+
     private void loadLoginView() {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

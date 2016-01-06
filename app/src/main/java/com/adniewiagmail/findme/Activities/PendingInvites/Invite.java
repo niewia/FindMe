@@ -1,5 +1,6 @@
-package com.adniewiagmail.findme.Persistence.DataObjects;
+package com.adniewiagmail.findme.Activities.PendingInvites;
 
+import com.adniewiagmail.findme.Activities.FriendsList.Friend;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;

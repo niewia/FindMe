@@ -11,10 +11,11 @@ import android.widget.Button;
 
 import com.adniewiagmail.findme.Activities.EditProfile;
 import com.adniewiagmail.findme.Activities.FindFriends;
+import com.adniewiagmail.findme.Activities.FriendsList.MyFriendsList;
 import com.adniewiagmail.findme.Activities.LoginActivity;
-import com.adniewiagmail.findme.Activities.MyFriendsList;
-import com.adniewiagmail.findme.Activities.PendingInvitesList;
+import com.adniewiagmail.findme.Activities.PendingInvites.PendingInvitesList;
 import com.adniewiagmail.findme.Activities.UpdateStatusPopup;
+import com.adniewiagmail.findme.Persistence.DataManager;
 import com.adniewiagmail.findme.R;
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
@@ -25,18 +26,17 @@ import com.parse.SaveCallback;
  * Created by Adaś on 2015-11-12.
  */
 public class MenuFragment extends Fragment {
-
     private Button pendingInvites;
     private Button updateStatus;
     private Button editProfile;
     private Button findFriends;
     private Button myFriends;
     private Button quit;
-    
+    private MapFragment mapFragment;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.fragment_main_menu, container,
                 false);
         initButtons(v);
@@ -45,6 +45,7 @@ public class MenuFragment extends Fragment {
 
     private void initButtons(View v) {
         pendingInvites = (Button) v.findViewById(R.id.buttonPendingInvites);
+        DataManager.pendingInvites().loadInvites(pendingInvites);
         pendingInvites.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -53,7 +54,6 @@ public class MenuFragment extends Fragment {
                     }
                 }
         );
-
         myFriends = (Button) v.findViewById(R.id.buttonMyFriends);
         myFriends.setOnClickListener(
                 new View.OnClickListener() {
@@ -63,7 +63,6 @@ public class MenuFragment extends Fragment {
                     }
                 }
         );
-
         updateStatus = (Button) v.findViewById(R.id.buttonUpdateStatus);
         updateStatus.setOnClickListener(
                 new View.OnClickListener() {
@@ -73,7 +72,6 @@ public class MenuFragment extends Fragment {
                     }
                 }
         );
-
         quit = (Button) v.findViewById(R.id.buttonQuit);
         quit.setOnClickListener(
                 new View.OnClickListener() {
@@ -83,7 +81,6 @@ public class MenuFragment extends Fragment {
                     }
                 }
         );
-
         findFriends = (Button) v.findViewById(R.id.buttonFindFriends);
         findFriends.setOnClickListener(
                 new View.OnClickListener() {
@@ -93,7 +90,6 @@ public class MenuFragment extends Fragment {
                     }
                 }
         );
-
         editProfile = (Button) v.findViewById(R.id.buttonEditProfile);
         editProfile.setOnClickListener(
                 new View.OnClickListener() {
@@ -106,17 +102,26 @@ public class MenuFragment extends Fragment {
     }
 
     private void editProfile() {
-        Intent intent = new Intent(getActivity(), EditProfile.class);
-        startActivity(intent);
+        startNewActivity(EditProfile.class);
     }
 
     private void myFriends() {
-        Intent intent = new Intent(getActivity(), MyFriendsList.class);
-        startActivity(intent);
+        startNewActivity(MyFriendsList.class);
     }
 
     private void pendingInvites() {
-        Intent intent = new Intent(getActivity(), PendingInvitesList.class);
+        startNewActivity(PendingInvitesList.class);
+    }
+
+    private void findFriends() {
+        startNewActivity(FindFriends.class);
+    }
+
+    private void startNewActivity(Class<?> newActivity) {
+        Intent intent = new Intent(getActivity(), newActivity);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("cameraPosition", mapFragment.getGoogleMap().getCameraPosition());
         startActivity(intent);
     }
 
@@ -139,10 +144,11 @@ public class MenuFragment extends Fragment {
         ParseUser.logOutInBackground(new LogOutCallback() {
             @Override
             public void done(ParseException e) {
+                MainActivity activity = (MainActivity) getActivity();
+                activity.onPause();
+                ParseUser.logOut();
                 progress.dismiss();
                 loadLoginView();
-//                getActivity().finish();
-//                System.exit(0);
             }
         });
     }
@@ -158,9 +164,7 @@ public class MenuFragment extends Fragment {
         new UpdateStatusPopup(getActivity());
     }
 
-    private void findFriends() {
-        Intent intent = new Intent(getActivity(), FindFriends.class);
-        startActivity(intent);
+    public void setMapFragment(MapFragment mapFragment) {
+        this.mapFragment = mapFragment;
     }
-
 }

@@ -1,65 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/popup_element_add_friend"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:weightSum="1"
-              android:background="#ffffff">
-    <TextView
-        android:id="@+id/addFriendPopupFriendName"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:editable="false"
-        android:layout_weight="0.4"
-        android:textSize="12sp"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        />
+<LinearLayout
+    android:id="@+id/popup_element_add_friend"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/add_friend_popup_shape"
+    android:orientation="vertical"
+    >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="@string/addFriendConfirmation"
-        android:editable="false"
-        android:layout_weight="0.4"
-        android:textSize="12sp"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        />
+    <ImageView
+        android:id="@+id/addFriendPopupFriendPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/default_profile_photo"/>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:weightSum="1"
-        android:layout_weight="0.2"
-        android:layout_margin="5dp"
-        >
+        android:orientation="vertical">
 
-        <Button
-            android:layout_width="0dp"
-            android:background="@drawable/button"
-            android:textColor="@color/colorAccent"
-            android:layout_height="match_parent"
-            android:text="@string/yes"
-            android:id="@+id/buttonAddFriedConfirm"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.5"
+        <TextView
+            android:id="@+id/addFriendPopupFriendName"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:editable="false"
+            android:gravity="center_horizontal"
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimaryDark"
             />
 
-        <Button
-            android:layout_width="0dp"
-            android:background="@drawable/button"
-            android:textColor="@color/colorAccent"
-            android:layout_height="match_parent"
-            android:text="@string/no"
-            android:id="@+id/buttonAddFriendCanel"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.5"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="0.4"
+            android:editable="false"
+            android:gravity="center"
+            android:text="@string/addFriendConfirmation"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimaryDark"
             />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="0.2"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            >
+
+            <Button
+                android:id="@+id/buttonAddFriedConfirm"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.5"
+                android:background="@drawable/button"
+                android:text="@string/yes"
+                android:textColor="@color/colorAccent"
+                />
+
+            <Button
+                android:id="@+id/buttonAddFriendCanel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.5"
+                android:background="@drawable/button"
+                android:text="@string/no"
+                android:textColor="@color/colorAccent"
+                />
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
-
 </LinearLayout>

@@ -1,10 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:gravity="center"
-          android:padding="5dp"
-          android:singleLine="true"
-          android:textSize="20sp"
-          android:ellipsize="end">
-</TextView>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/friend_item_shape"
+              android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/inviteItemPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/default_profile_photo"/>
+
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/inviteItemNickname"
+                      xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:ellipsize="end"
+                      android:gravity="center"
+                      android:padding="4dp"
+                      android:singleLine="true"
+                      android:text="lolol"
+                      android:layout_alignParentLeft="true"
+                      android:textColor="@color/colorAccent"
+                      android:textSize="20sp">
+            </TextView>
+
+            <TextView android:id="@+id/inviteItemFullName"
+                      xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:ellipsize="end"
+                      android:padding="4dp"
+                      android:layout_below="@+id/inviteItemNickname"
+                      android:singleLine="true"
+                      android:text="lolol"
+                      android:gravity="center"
+                      android:textColor="@color/colorAccent"
+                      android:textSize="15sp">
+            </TextView>
+
+        </RelativeLayout>
+
+</LinearLayout>

@@ -12,15 +12,18 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.adniewiagmail.findme.Activities.MainActivity.MainActivity;
 import com.adniewiagmail.findme.R;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -41,6 +44,10 @@ public class EditProfile extends AppCompatActivity {
     private ImageView imageProfilePhotoIcon;
     private String imgDecodableString;
     private Bitmap profilePhoto;
+    private EditText nickname;
+    private EditText firstName;
+    private EditText lastName;
+    private EditText email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +91,19 @@ public class EditProfile extends AppCompatActivity {
                     }
                 }
         );
+
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        nickname = (EditText) findViewById(R.id.editProfileNickname);
+        nickname.setText(currentUser.getUsername());
+
+        firstName = (EditText) findViewById(R.id.editProfileFirstName);
+        firstName.setText(currentUser.getString("firstName"));
+
+        lastName = (EditText) findViewById(R.id.editProfileLastName);
+        lastName.setText(currentUser.getString("lastName"));
+
+        email = (EditText) findViewById(R.id.editProfileEmail);
+        email.setText(currentUser.getEmail());
     }
 
     private void loadPhoto() {
@@ -112,6 +132,10 @@ public class EditProfile extends AppCompatActivity {
         ParseUser currentUser = ParseUser.getCurrentUser();
         // Create a column named "ImageFile" and insert the image
         currentUser.put("profile_photo", image);
+        currentUser.setUsername(nickname.getText().toString());
+        currentUser.setEmail(email.getText().toString());
+        currentUser.put("firstName", firstName.getText().toString());
+        currentUser.put("lastName", lastName.getText().toString());
         // Create the class and the columns
         currentUser.saveInBackground(new SaveCallback() {
             @Override
@@ -225,9 +249,19 @@ public class EditProfile extends AppCompatActivity {
         c.drawBitmap(bitmap, halfBorder, halfBorder, p);
         p.setXfermode(null);
         p.setStyle(Paint.Style.STROKE);
-        p.setColor(0xFFAC33FF);
+        p.setColor(0xFFA349A4);
         p.setStrokeWidth(halfBorder);
         c.drawCircle((w / 2) + halfBorder, (h / 2) + halfBorder, radius, p);
         return output;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Parcelable cameraPosition = getIntent().getParcelableExtra("cameraPosition");
+        Intent intent = new Intent(EditProfile.this, MainActivity.class);
+        intent.putExtra("cameraPosition", cameraPosition);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

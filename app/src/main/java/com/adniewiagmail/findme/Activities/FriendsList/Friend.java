@@ -1,18 +1,19 @@
-package com.adniewiagmail.findme.Persistence.DataObjects;
+package com.adniewiagmail.findme.Activities.FriendsList;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.adniewiagmail.findme.Activities.FindMe;
+import com.adniewiagmail.findme.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
@@ -20,7 +21,10 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Adaś on 2015-11-12.
@@ -33,10 +37,11 @@ public class Friend {
     private String lastName;
     private String status;
     private LatLng location;
-    private Marker marker;
+    private FriendMarker marker;
     private Bitmap profilePhoto;
     private ParseUser user;
     private Date updatedAt;
+    private Address address;
 
     public Friend(ParseObject friendObject) {
         setFriendData(friendObject);
@@ -124,6 +129,9 @@ public class Friend {
     }
 
     public void setStatus(String status) {
+        if (status == null) {
+            status = FindMe.getAppContext().getString(R.string.statusNothingToSay);
+        }
         this.status = status;
     }
 
@@ -133,9 +141,27 @@ public class Friend {
 
     public void setLocation(ParseGeoPoint location) {
         this.location = new LatLng(location.getLatitude(), location.getLongitude());
+        Geocoder gcd = new Geocoder(FindMe.getAppContext(), Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (addresses.size() > 0) {
+            setAddress(addresses.get(0));
+        }
     }
 
-    private BitmapDescriptor getIcon() {
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Address getAddress() {
+        return this.address;
+    }
+
+    public BitmapDescriptor getIcon() {
         Bitmap profilePhoto = getProfilePhoto();
         BitmapDescriptor icon;
         if (profilePhoto == null) {
@@ -148,27 +174,9 @@ public class Friend {
 
     public void updateMarker(GoogleMap map) {
         if (marker == null) {
-            Log.d("FRIEND", "Creating new marker");
-            MarkerOptions options = new MarkerOptions()
-                    .position(getLocation())
-                    .title(getUsername())
-                    .snippet(getStatus())
-                    .icon(getIcon());
-            this.marker = map.addMarker(options);
+            marker = new FriendMarker(map, this);
         } else {
-            if (!marker.getPosition().equals(getLocation())) {
-                Log.d("FRIEND", "Updating marker location");
-                marker.setPosition(getLocation());
-            }
-            if (!marker.getTitle().equals(getUsername())) {
-                Log.d("FRIEND", "Updating marker title");
-                marker.setTitle(getUsername());
-            }
-            if (!marker.getSnippet().equals(getStatus())) {
-                Log.d("FRIEND", "Updating marker snippet");
-                marker.setSnippet(getStatus());
-            }
-            marker.setIcon(getIcon());
+            marker.updateMarker(this);
         }
     }
 
@@ -192,6 +200,7 @@ public class Friend {
             setStatus(friendObject.getString("status"));
             setProfilePhoto(friendObject.getBytes("profile_photo"));
             updateMarker(map);
+            setUpdatedAt(updatedAt);
         } else {
             Log.d("FRIEND", "FRIEND DATA IS UP TO DATE");
         }

@@ -9,13 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adniewiagmail.findme.Activities.FriendsList.Friend;
+import com.adniewiagmail.findme.Activities.PendingInvites.PendingInvitesList;
 import com.adniewiagmail.findme.Persistence.DataManager;
-import com.adniewiagmail.findme.Persistence.DataObjects.Friend;
 import com.adniewiagmail.findme.R;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
@@ -30,6 +32,7 @@ import java.util.Map;
  */
 public class AddFriendPopup {
     private final Activity activity;
+    private ImageView friendPhoto;
     private TextView textViewFriendName;
     private Button buttonConfirm;
     private Button buttonCancel;
@@ -48,9 +51,11 @@ public class AddFriendPopup {
         View layout = inflater.inflate(R.layout.popup_add_friend,
                 (ViewGroup) activity.findViewById(R.id.popup_element_add_friend));
         statusPopup = new PopupWindow(layout);
-        statusPopup.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
+        statusPopup.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
         statusPopup.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
         this.friendToAdd = friendToAdd;
+        friendPhoto = (ImageView)layout.findViewById(R.id.addFriendPopupFriendPhoto);
+        friendPhoto.setImageBitmap(friendToAdd.getProfilePhoto());
         textViewFriendName = (TextView) layout.findViewById(R.id.addFriendPopupFriendName);
         textViewFriendName.setText(friendToAdd.toString() + message);
         buttonConfirm = (Button) layout.findViewById(R.id.buttonAddFriedConfirm);
